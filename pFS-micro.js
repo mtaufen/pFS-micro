@@ -1,4 +1,7 @@
 /*
+Partially based on some code from a tutorial at http://www.html5rocks.com/en/tutorials/file/filesystem/#toc-direntry
+that was shared by Google under Apache 2.0
+
 Licensed under the MIT license, http://www.opensource.org/licenses/mit-license.php
 
 Copyright (c) 2011 Michael Taufen
@@ -24,7 +27,7 @@ THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 (function (window, document, undefined) {
 	window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem;
 
-	var errorHandler = function (e) {
+	var errorHandler = function (e) { 
 		var msg = '';
 		switch (e.code) {
 			case FileError.QUOTA_EXCEEDED_ERR:
