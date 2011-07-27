@@ -1,4 +1,3 @@
-=begin
 = pFS-micro
 
 This micro-library is *ONLY* for *PERSISTENT* local storage.
