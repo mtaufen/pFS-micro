@@ -21,6 +21,8 @@ To read from a file:
 
 pFS.readFrom(filesystem_object, filename_string, callback_function(e));
 
+--
+
 I find it best to stick my operations in the callback of pFS.set() like so:
 
 pFS.set(2*1024*1024, function (fs) {
