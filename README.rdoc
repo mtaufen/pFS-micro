@@ -18,8 +18,8 @@ To create a new file or writeOver content in an existing file of the same name:
  pFS.writeOver(filesystem_object, filename_string, data_string, callback_function(e));
 
 *Note:* This will only write over the data in the file, it will not replace it. 
-For example, if you had a file called 'text.txt' and it contained the string 'awesomestring',
-and you performed writeOver on it with a data_string of 'str', 'text.txt' would then contain '*str*somestring'
+For example, if you had a file called 'text.txt' and it contained the string `awesomestring`,
+and you performed writeOver on it with a data_string of 'str', 'text.txt' would then contain *str*somestring
 
 --
 
