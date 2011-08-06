@@ -61,6 +61,37 @@ THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 		set : function (size, callback) { //string
 				window.requestFileSystem(window.PERSISTENT, size, callback, errorHandler);
 		},
+		replaceContent : function (fs, filename, dataToWrite, callback) { //object, string, string, function(e)
+					
+
+					//get the file and delete it the contents, then write to the file (this creates a fresh file each time, avoiding strange behavior when using writeOver with progressively shorter contents)
+					fs.root.getFile(filename, {create: true, exclusive: false}, function (tempFileEntry) {//eraser
+						tempFileEntry.remove(function() {
+							fs.root.getFile(filename, {create: true, exclusive: false}, function (fileEntry) {//writer
+								pFS.currentURL = fileEntry.toURL();
+								fileEntry.createWriter(function (fileWriter) {
+
+									fileWriter.onwriteend = callback;
+									fileWriter.onerror = function (e) {
+										console.log( 'Write failed: ' + e.toString() );
+									};
+									var bb = new window.WebKitBlobBuilder(); //chrome 12 only (but also workig in app for chrome 11...) BlobBuilder() is spec
+									bb.append(dataToWrite);
+									fileWriter.write(bb.getBlob('text/plain'));
+
+								}, errorHandler);
+
+							}, errorHandler);
+
+						}, errorHandler);
+
+					}, errorHandler);
+
+					
+		},
+
+		//TODO: replace file
+
 		writeOver : function (fs, filename, dataToWrite, callback) { //object, string, string, function(e)
 					fs.root.getFile(filename, {create: true, exclusive: false}, function (fileEntry) {
 						fileEntry.createWriter(function (fileWriter) {
@@ -79,6 +110,7 @@ THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 	
 		readFrom : function (fs, filename, callback) { //object, string, function(e) receives... filedata?... sure seems that way
 					fs.root.getFile(filename, {}, function (fileEntry) {
+						pFS.currentURL = fileEntry.toURL();
 						fileEntry.file(function (file) {
 							var reader = new FileReader();
 							reader.onloadend = callback;
