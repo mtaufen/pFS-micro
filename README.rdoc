@@ -25,7 +25,7 @@ and you performed writeOver on it with a data_string of 'str', 'text.txt' would 
 
 To actually *replace* the contents of a file:
 
- pFS.replaceContent(filesystem_object, filename_string, data_string, callback_function(e){ })
+ pFS.replaceContent(filesystem_object, filename_string, data_string, callback_function(e){ });
 
 --
 
