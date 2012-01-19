@@ -15,11 +15,17 @@ To access the current filesystem for your app or create a new one (if none exist
 
 To create a new file or writeOver content in an existing file of the same name:
 
- pFS.writeOver(filesystem_object, filename_string, data_string, callback_function(e));
+ pFS.writeOver(filesystem_object, filename_string, data_string, callback_function(e){ });
 
 <b>Note:</b> This will only write over the data in the file, it will not replace it. 
 For example, if you had a file called 'text.txt' and it contained the string 'awesomestring',
 and you performed writeOver on it with a data_string of 'str', 'text.txt' would then contain '<b>str</b>somestring'
+
+--
+
+To actually *replace* the contents of a file:
+
+ pFS.replaceContent(filesystem_object, filename_string, data_string, callback_function(e){ })
 
 --
 
@@ -29,7 +35,7 @@ To read from a file:
 
 --
 
-I find it best to stick my operations in the callback of pFS.set() like so:
+It is best to perform subsequent filesystem operations in the callback of pFS.set() like so:
 
  pFS.set(2*1024*1024, function (fs) {
  	pFS.writeOver(fs, 'data.txt', JSON.stringify(data), function (e) {
